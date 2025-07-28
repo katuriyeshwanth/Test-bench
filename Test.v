@@ -37,3 +37,27 @@ module test;
       #5 $finish;
     end
 endmodule
+
+//testbench for  shift register
+
+module test;
+  reg a,clk,clr;
+  wire e;
+  shift_register dut(clk,clr,a,e);
+  initial
+    begin
+      clk=1'b0;#2 clr=0; #5 clr=1;
+    end
+  always #5 clk=~clk;
+  initial
+    begin #2;
+      repeat(2)
+      #10 a=0; #10 a=0; #10 a=1; #10 a=1;
+    end
+  initial
+    begin
+      $dumpfile("shift_register.vcd");
+      $dumpvars(0,test);
+      #200 $finish;
+    end
+endmodule
