@@ -38,6 +38,29 @@ module test;
     end
 endmodule
 
+//automatic verifaction of output
+module test;
+reg a,b,c;
+wire sum,cout;
+integer correct;
+fulladder dut(a,b,c,sum,cout);
+initial
+begin
+correct=1;
+#5 a=1;b=1;c=0; #5
+if((sum!=0) | (cout!=1))
+correct=0;
+#5 a=1;b=1;c=1; #5
+if((sum!=1) | (cout!=1))
+correct=0;
+#5 a=0;b=1;c=0; #5
+if((sum!=1) | (cout!=0))
+correct=0;
+  #5 $display("correct=%d",correct);
+$stop;
+end
+endmodule
+
 //testbench for  shift register
 
 module test;
